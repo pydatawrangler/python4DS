@@ -1,0 +1,159 @@
+---
+title: Chapter 2 - Data Visualization
+format: 
+    html: 
+        self-contained: true
+---
+
+
+
+Chapter 2 from online book called [Python For Data Science](https://aeturrell.github.io/python4DS/welcome.html)
+
+```{python}
+import pandas as pd
+from palmerpenguins import load_penguins
+# from plotnine import *
+from lets_plot import *
+
+LetsPlot.setup_html()
+```
+
+```{python}
+penguins = load_penguins()
+penguins
+```
+
+```{python}
+penguins.head()
+```
+
+```{python}
+(ggplot(
+    data = penguins,
+    mapping = aes(x = "flipper_length_mm", y = "body_mass_g", color = "species")
+)
+ + geom_point()
+ + geom_smooth(method = "lm")
+)
+```
+
+```{python}
+(ggplot(
+    data = penguins,
+    mapping = aes(x = "flipper_length_mm", y = "body_mass_g")
+)
+ + geom_point(mapping = aes(color = "species", shape = "species"))
+ + geom_smooth(method = "lm")
+ + labs(
+     title = "Body mass and flipper length",
+     subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+     x = "Flipper length (mm)",
+     y = "Body mass (g)",
+     color = "Species",
+     shape = "Species",
+ )
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "species")
+)
+ + geom_bar()
+)
+```
+
+```{python}
+penguins["species"] = penguins["species"].astype("category")
+penguins.head()
+```
+
+```{python}
+penguins.info()
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "body_mass_g")
+)
+ + geom_histogram(binwidth = 200)
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "body_mass_g")
+)
+ + geom_density()
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "species", y = "body_mass_g")
+)
+ + geom_boxplot()
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "body_mass_g", color = "species")
+)
+ + geom_density(size = 2)
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "body_mass_g", color = "species", fill = "species")
+)
+ + geom_density(alpha = 0.5)
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "island", fill = "species")
+)
+ + geom_bar()
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "island", fill = "species")
+)
+ + geom_bar(position = "fill")
+)
+```
+
+```{python}
+(ggplot(
+    penguins,
+    aes(x = "flipper_length_mm", y = "body_mass_g")
+)
+ + geom_point(aes(color = "species", shape = "island"))
+)
+```
+
+```{python}
+plotted_data = (ggplot(
+    penguins,
+    aes(x = "flipper_length_mm", y = "body_mass_g")
+)
+ + geom_point(aes(color = "species", shape = "island"))
+ + facet_wrap(facets = "island")
+)
+ggsave(plotted_data, filename = "penguin-plot.svg")
+```
+
+
