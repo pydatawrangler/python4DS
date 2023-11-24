@@ -1,17 +1,27 @@
 ---
 title: Chapter 2 - Data Visualization
-format: 
-    html: 
-        self-contained: true
+format:
+  html:
+    self-contained: true
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.15.1
+  kernelspec:
+    display_name: 'Python [conda env:eda]'
+    language: python
+    name: conda-env-eda-py
 ---
-
-
 
 Chapter 2 from online book called [Python For Data Science](https://aeturrell.github.io/python4DS/welcome.html)
 
 ```{python}
 import pandas as pd
 from palmerpenguins import load_penguins
+# from qgrid import show_grid
 # from plotnine import *
 from lets_plot import *
 
@@ -155,5 +165,3 @@ plotted_data = (ggplot(
 )
 ggsave(plotted_data, filename = "penguin-plot.svg")
 ```
-
-
